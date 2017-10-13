@@ -19,13 +19,8 @@ namespace BitCoinInterface
             //obj.start();
             //Console.WriteLine(obj.getLtpVal());
             //Console.ReadKey();
-            XmlDocument xDoc = new XmlDocument();
-            XmlElement xEle = xDoc.CreateElement("config");
-            XmlElement xChile = xDoc.CreateElement("UpThreshold");
-            xChile.InnerText = "0.04";
-            xEle.AppendChild(xChile);
-            xDoc.AppendChild(xEle);
-            xDoc.Save("config.xml");
+            BitCoinStock a = new BitCoinStock("config.xml");
+            a.mainLoop();
 
 
         }

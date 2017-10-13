@@ -3,7 +3,11 @@
 ./error
 ./getmarkets
 ./BitCoinInterface/BitCoinInterface/bin/*
+./BitCoinInterface/BitCoinInterface/bin/*/*
 ./BitCoinInterface/BitCoinInterface/obj/*
+./BitCoinInterface/BitCoinInterface/obj/*/*
 ./BitCoWatcher/BitCoinWatcher/bin/*
+./BitCoWatcher/BitCoinWatcher/bin/*/*
 ./BitCoWatcher/BitCoinWatcher/obj/*
+./BitCoWatcher/BitCoinWatcher/obj/*/*
 *.dll

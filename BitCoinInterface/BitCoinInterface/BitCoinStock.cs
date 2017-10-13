@@ -10,6 +10,7 @@ namespace BitCoinInterface
     {
         #region private value
         private Ticker ticker;
+        private bool firstBuyFlag = true;
         #endregion
 
         #region attribute
@@ -91,13 +92,19 @@ namespace BitCoinInterface
         }
         #endregion
 
+        public static double _retainDecimal(double num, int decNum)
+        {
+            int a = (int) (num * Math.Pow(10, decNum));
+            return a / Math.Pow(10,decNum);
+        }
+
         public ExchangeStatus refreash()
         {
             getCurrentValue();
             Boolean statusChange = trendContain();
             if(statusChange)
             {
-                if(Status == StockStatus.up && (CurrentValue < LastSellVaule * BuyThreshold))
+                if(Status == StockStatus.up && (firstBuyFlag || (CurrentValue < LastSellVaule * BuyThreshold)))
                 {
                     return ExchangeStatus.buy;
                 }
@@ -188,8 +195,8 @@ namespace BitCoinInterface
             xChild = xDoc.CreateElement("SellThreshold");
             xChild.InnerText = SellThreshold.ToString();
             xEle.AppendChild(xChild);
-            xChild = xDoc.CreateElement("SleepTime");
-            xChild.InnerText = SleepTime.ToString();
+            xChild = xDoc.CreateElement("RequestFrequency");
+            xChild.InnerText = getRequestFrequency().ToString();
             xEle.AppendChild(xChild);
             xDoc.AppendChild(xEle);
             xDoc.Save(xmlFile);
@@ -285,28 +292,39 @@ namespace BitCoinInterface
                 }
             }
         }
-        private void writeLog(double moveNum, double currentCash, double currentBitcoin, ExchangeStatus action, double serFee)
+        public void writeLog(double moveNum, double currentCash, double currentBitcoin, ExchangeStatus action, double serFee)
         {
             using (StreamWriter logStream = new StreamWriter("bitcoin.log", true))
             {
-                logStream.WriteLine("%s\t%s\t%s\t%s\t%s\t%s", DateTime.UtcNow.ToString(), moveNum.ToString(), currentCash.ToString(), currentBitcoin.ToString(), action.ToString(), serFee.ToString());
+                logStream.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", DateTime.UtcNow.ToString(), moveNum.ToString(), currentCash.ToString(), 
+                    currentBitcoin.ToString(), action.ToString(), serFee.ToString());
             }
 
         }
         private void buy()
         {
-            double canBuy = (double)Decimal.Round(Decimal.Parse((CurrentCashNum / CurrentValue).ToString()), 3);
-            double move = (double)Decimal.Round(Decimal.Parse((canBuy * 0.9991).ToString()), 3);
+            //double canBuy = (double)Decimal.Round(Decimal.Parse((CurrentCashNum / CurrentValue).ToString()), 3);
+            double canBuy = BitCoinStock._retainDecimal(CurrentCashNum / CurrentValue, 3);
+            //double move = (double)Decimal.Round(Decimal.Parse((canBuy * 0.9991).ToString()), 3);
+            double move = BitCoinStock._retainDecimal((canBuy*0.9991),3);
             CurrentBitcoinNum += move;
             CurrentCashNum -= CurrentValue * canBuy;
+            LastBuyValue = CurrentValue;
             writeLog(move, CurrentCashNum, CurrentBitcoinNum, ExchangeStatus.buy, (canBuy - move));
+            if(firstBuyFlag)
+            {
+                firstBuyFlag = false;
+            }
         }
         private void sell()
         {
-            double canSell = (double)Decimal.Round(Decimal.Parse((CurrentBitcoinNum).ToString()), 3);
-            double move = (double)Decimal.Round(Decimal.Parse((CurrentBitcoinNum * 0.9991).ToString()), 3);
+            //double canSell = (double)Decimal.Round(Decimal.Parse((CurrentBitcoinNum).ToString()), 3);
+            //double move = (double)Decimal.Round(Decimal.Parse((CurrentBitcoinNum * 0.9991).ToString()), 3);
+            double canSell = BitCoinStock._retainDecimal(CurrentBitcoinNum, 3);
+            double move = BitCoinStock._retainDecimal(CurrentBitcoinNum * 0.9991, 3);
             CurrentBitcoinNum -= canSell;
             CurrentCashNum += move * CurrentValue;
+            LastSellVaule = CurrentValue;
             writeLog(move, CurrentCashNum, CurrentCashNum, ExchangeStatus.sell, (canSell - move));
         }
     }
