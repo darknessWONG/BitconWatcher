@@ -1,7 +1,0 @@
-<config>
-  <UpThreshold>0.05</UpThreshold>
-  <DownThreshold>0.05</DownThreshold>
-  <BuyThreshold>0.95</BuyThreshold>
-  <SellThreshold>1.002</SellThreshold>
-  <RequestFrequency>2</RequestFrequency>
-</config>

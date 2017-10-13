@@ -2,7 +2,6 @@
 ./*.py
 ./error
 ./getmarkets
-./.gitignore
 ./BitCoinInterface/BitCoinInterface/bin/*
 ./BitCoinInterface/BitCoinInterface/obj/*
 ./BitCoWatcher/BitCoinWatcher/bin/*
