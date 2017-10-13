@@ -7,3 +7,4 @@
 ./BitCoinInterface/BitCoinInterface/obj/*
 ./BitCoWatcher/BitCoinWatcher/bin/*
 ./BitCoWatcher/BitCoinWatcher/obj/*
+*.dll
