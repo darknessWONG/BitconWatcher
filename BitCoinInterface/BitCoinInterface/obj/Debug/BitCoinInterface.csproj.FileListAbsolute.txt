@@ -1,0 +1,15 @@
+D:\code\BITCOIN\BitCoinInterface\BitCoinInterface\bin\Debug\BitCoinInterface.pdb
+D:\code\BITCOIN\BitCoinInterface\BitCoinInterface\bin\Debug\IronPython.dll
+D:\code\BITCOIN\BitCoinInterface\BitCoinInterface\bin\Debug\Microsoft.Scripting.dll
+D:\code\BITCOIN\BitCoinInterface\BitCoinInterface\bin\Debug\Microsoft.Dynamic.dll
+D:\code\BITCOIN\BitCoinInterface\BitCoinInterface\bin\Debug\Microsoft.Scripting.Metadata.dll
+D:\code\BITCOIN\BitCoinInterface\BitCoinInterface\bin\Debug\IronPython.xml
+D:\code\BITCOIN\BitCoinInterface\BitCoinInterface\bin\Debug\Microsoft.Scripting.xml
+D:\code\BITCOIN\BitCoinInterface\BitCoinInterface\bin\Debug\Microsoft.Dynamic.xml
+D:\code\BITCOIN\BitCoinInterface\BitCoinInterface\bin\Debug\Microsoft.Scripting.Metadata.xml
+D:\code\BITCOIN\BitCoinInterface\BitCoinInterface\obj\Debug\BitCoinInterface.csprojResolveAssemblyReference.cache
+D:\code\BITCOIN\BitCoinInterface\BitCoinInterface\obj\Debug\BitCoinInterface.pdb
+D:\code\BITCOIN\BitCoinInterface\BitCoinInterface\bin\Debug\Newtonsoft.Json.dll
+D:\code\BITCOIN\BitCoinInterface\BitCoinInterface\bin\Debug\Newtonsoft.Json.xml
+D:\code\BITCOIN\BitCoinInterface\BitCoinInterface\bin\Debug\BitCoinInterface.dll
+D:\code\BITCOIN\BitCoinInterface\BitCoinInterface\obj\Debug\BitCoinInterface.dll

@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitCoinInterface", "BitCoinInterface\BitCoinInterface.csproj", "{1416F1B1-E9F4-4810-939E-6271BF3A5659}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BitCoinWatcher", "..\BitCoWatcher\BitCoinWatcher\BitCoinWatcher.csproj", "{87C77B19-561C-4273-8FEE-56A7438BFCED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1416F1B1-E9F4-4810-939E-6271BF3A5659}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1416F1B1-E9F4-4810-939E-6271BF3A5659}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1416F1B1-E9F4-4810-939E-6271BF3A5659}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1416F1B1-E9F4-4810-939E-6271BF3A5659}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87C77B19-561C-4273-8FEE-56A7438BFCED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87C77B19-561C-4273-8FEE-56A7438BFCED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87C77B19-561C-4273-8FEE-56A7438BFCED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87C77B19-561C-4273-8FEE-56A7438BFCED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
