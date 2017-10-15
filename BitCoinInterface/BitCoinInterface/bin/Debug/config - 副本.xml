@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<config>
-	<UpThreshold>0.05</UpThreshold>
-	<DownThreshold>0.05</DownThreshold>
-	<BuyThreshold>0.03</BuyThreshold>
-	<SellThreshold>1.002</SellThreshold>
-	<sleepTime>15000</sleepTime>
-</config>

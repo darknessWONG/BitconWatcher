@@ -3,6 +3,7 @@ using System.Threading;
 using System.Xml;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace BitCoinInterface
 {
@@ -11,6 +12,7 @@ namespace BitCoinInterface
         #region private value
         private Ticker ticker;
         private bool firstBuyFlag = true;
+        private ErrorCounter errorCounter;
         #endregion
 
         #region attribute
@@ -100,7 +102,17 @@ namespace BitCoinInterface
 
         public ExchangeStatus refreash()
         {
-            getCurrentValue();
+            try
+            {
+                getCurrentValue();
+            }catch(Exception)
+            {
+                if(!errorCounter.getNowStatus())
+                {
+                    //dosomething let the user know
+                }
+                return ExchangeStatus.doNothing;
+            }
             Boolean statusChange = trendContain();
             if(statusChange)
             {
@@ -132,7 +144,7 @@ namespace BitCoinInterface
         }
         public double getRequestFrequency()
         {
-            return 6000 / SleepTime;
+            return 60000 / SleepTime;
         }
         public void setMemberValue(double upthreshold = 0, double downThreshold = 0, double buyThreshold = 0, double sellThreshold = 0, double requestFrequency = 10, 
             StockStatus status = StockStatus.noStatus, double peakVaule = 0, double trougValue = 0, double currentValue = 0, double lastValue =0, 
@@ -149,6 +161,8 @@ namespace BitCoinInterface
             setSleepTime(requestFrequency);
             Status = status;
             Decision = decision;
+
+            errorCounter = new ErrorCounter(10, 4);
 
             CurrentCashNum = 1000000;
             CurrentBitcoinNum = 0;
@@ -171,7 +185,7 @@ namespace BitCoinInterface
             LastValue = datas.ContainsKey("LastValue") ? Convert.ToDouble(datas["LastValue"]) : 0;
 
             Decision = ExchangeStatus.doNothing;
-
+            errorCounter = new ErrorCounter(10, 4);
 
             CurrentCashNum = 1000000;
             CurrentBitcoinNum = 0;
@@ -205,9 +219,18 @@ namespace BitCoinInterface
 
         private void getCurrentValue()
         {
-            ticker.start();
-            LastValue = CurrentValue;
-            CurrentValue = ticker.getLtpVal();
+            try
+            {
+                ticker.start();
+                LastValue = CurrentValue;
+                CurrentValue = ticker.getLtpVal();
+            }
+            catch(Exception)
+            {
+                errorCounter.addRecord(false);
+                throw;
+            }
+            errorCounter.addRecord(true);
         }
         /*走势监控
          * 根据升跌状态来调整最高价和最低价
@@ -260,7 +283,7 @@ namespace BitCoinInterface
         }
         private double calSleepTime(double requestFrequency)
         {
-            return 6000 / requestFrequency;
+            return 60000 / requestFrequency;
         }
         private Dictionary<string, string> loadConfigXml(string xmlFile)
         {
@@ -292,7 +315,7 @@ namespace BitCoinInterface
                 }
             }
         }
-        public void writeLog(double moveNum, double currentCash, double currentBitcoin, ExchangeStatus action, double serFee)
+        private void writeLog(double moveNum, double currentCash, double currentBitcoin, ExchangeStatus action, double serFee)
         {
             using (StreamWriter logStream = new StreamWriter("bitcoin.log", true))
             {
@@ -325,7 +348,7 @@ namespace BitCoinInterface
             CurrentBitcoinNum -= canSell;
             CurrentCashNum += move * CurrentValue;
             LastSellVaule = CurrentValue;
-            writeLog(move, CurrentCashNum, CurrentCashNum, ExchangeStatus.sell, (canSell - move));
+            writeLog(move, CurrentCashNum, CurrentBitcoinNum, ExchangeStatus.sell, (canSell - move));
         }
     }
 
@@ -347,4 +370,51 @@ namespace BitCoinInterface
         buy,
         sell
     }
+
+    public class ErrorCounter
+    {
+        private bool[] counter;
+        private int counterNum;
+        private int toleranceNum;
+        private int currentPointer;
+
+        public ErrorCounter(int counterNum, int toleranceNum)
+        {
+            if(counterNum < toleranceNum)
+            {
+                throw new ErrorCounterException();
+            }
+            this.counterNum = counterNum;
+            this.toleranceNum = toleranceNum;
+            currentPointer = 0;
+            counter = Enumerable.Repeat<bool>(true, counterNum).ToArray();
+        }
+
+        public bool addRecord(bool Record)
+        {
+            counter[currentPointer] = Record;
+            currentPointer = ++currentPointer % counterNum;
+            return getNowStatus();
+        }
+        public bool getNowStatus()
+        {
+            int count = 0;
+            for(int i =0; i<counterNum;i++)
+            {
+                if (!counter[i])
+                {
+                    count++;
+                }
+            }
+            if(count >= toleranceNum)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+    }
+
 }

@@ -1,7 +1,0 @@
-<config>
-  <UpThreshold>0</UpThreshold>
-  <DownThreshold>0</DownThreshold>
-  <BuyThreshold>0</BuyThreshold>
-  <SellThreshold>0</SellThreshold>
-  <SleepTime>3000</SleepTime>
-</config>

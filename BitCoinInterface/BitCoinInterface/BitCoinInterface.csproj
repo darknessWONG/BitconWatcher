@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BitCoinInterfaceException.cs" />
     <Compile Include="BitCoinStock.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="PublicApis.cs" />
