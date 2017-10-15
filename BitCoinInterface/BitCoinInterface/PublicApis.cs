@@ -25,9 +25,9 @@ namespace BitCoinInterface
         }
     }
 
-    public class Ticker : PublicApis
+    public class TickerApi : PublicApis
     {
-        public Ticker()
+        public TickerApi()
         {
             Func_name = "ticker";
 

@@ -33,13 +33,13 @@ namespace BitCoinWatcher
             bitCoinStock = new BitCoinStock(xmlFile);
             bitCoinStock.refreashed += this.labelRefreash;
 
-            frequencyTextBox.Text = bitCoinStock.getRequestFrequency().ToString();
+            frequencyTextBox.Text = bitCoinStock.GetRequestFrequency().ToString();
             sellThresholdTextBox.Text = bitCoinStock.SellThreshold.ToString();
             buyThresholTextBox.Text = bitCoinStock.BuyThreshold.ToString();
-            upThresholdTextBox.Text = bitCoinStock.UpThreshold.ToString();
-            downThresholTextBox.Text = bitCoinStock.DownThreshold.ToString();
+            upThresholdTextBox.Text = bitCoinStock.Ticker.UpThreshold.ToString();
+            downThresholTextBox.Text = bitCoinStock.Ticker.DownThreshold.ToString();
 
-            thread = new Thread(bitCoinStock.mainLoop);
+            thread = new Thread(bitCoinStock.MainLoop);
             thread.Name = "mainloop";
             thread.Start();
         }
@@ -61,9 +61,10 @@ namespace BitCoinWatcher
         }
         private void setBitcoinStockMember()
         {
-            bitCoinStock.setMemberValue(Convert.ToDouble(upThresholdTextBox.Text), Convert.ToDouble(downThresholTextBox.Text),
-                Convert.ToDouble(buyThresholTextBox.Text), Convert.ToDouble(sellThresholdTextBox.Text), Convert.ToDouble(frequencyTextBox.Text));
-            bitCoinStock.saveXml(xmlFile);
+            bitCoinStock.SetMemberValue(Convert.ToDouble(buyThresholTextBox.Text), Convert.ToDouble(sellThresholdTextBox.Text), 
+                Convert.ToDouble(frequencyTextBox.Text));
+            bitCoinStock.Ticker.SetMemberValue(Convert.ToDouble(upThresholdTextBox.Text), Convert.ToDouble(downThresholTextBox.Text));
+            bitCoinStock.SaveXml(xmlFile);
         }
 
         private void button1_Click(object sender, EventArgs e)

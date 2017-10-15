@@ -19,8 +19,9 @@ namespace BitCoinInterface
             //obj.start();
             //Console.WriteLine(obj.getLtpVal());
             //Console.ReadKey();
+
             BitCoinStock a = new BitCoinStock("config.xml");
-            a.mainLoop();
+            a.MainLoop();
 
 
         }

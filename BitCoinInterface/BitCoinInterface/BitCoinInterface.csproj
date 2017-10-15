@@ -53,8 +53,11 @@
   <ItemGroup>
     <Compile Include="BitCoinInterfaceException.cs" />
     <Compile Include="BitCoinStock.cs" />
+    <Compile Include="BitcoinTicker.cs" />
+    <Compile Include="BitcoinTrade.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="PublicApis.cs" />
+    <Compile Include="PublicTools.cs" />
     <Compile Include="WebRequestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

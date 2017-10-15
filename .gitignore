@@ -11,3 +11,4 @@
 ./BitCoWatcher/BitCoinWatcher/obj/*
 ./BitCoWatcher/BitCoinWatcher/obj/*/*
 *.dll
+*.suo
