@@ -15,8 +15,12 @@ namespace BitCoinWatcher
 
         public void labelRefreash(Object sender,BitCoinStock.RefreashedEventArgs e)
         {
-            BitCoinStock tmpBitcoinStock = (BitCoinStock)sender;
+            //BitCoinStock tmpBitcoinStock = (BitCoinStock)sender;
             changeText(e);
+        }
+        public void alerting(Object sender, BitCoinStock.AlertEventArgs e)
+        {
+            playSound(e);
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -29,15 +33,17 @@ namespace BitCoinWatcher
             stockStatus[StockStatus.down] = "降";
             stockStatus[StockStatus.up] = "升";
             stockStatus[StockStatus.noStatus] = "暂无状态";
-            //bitCoinStock = new BitCoinStock(upThreshold, downThreshold, buyThreshold, sellThreshold, requestFrequency);
             bitCoinStock = new BitCoinStock(xmlFile);
             bitCoinStock.refreashed += this.labelRefreash;
+            bitCoinStock.alert += this.alerting;
 
             frequencyTextBox.Text = bitCoinStock.GetRequestFrequency().ToString();
             sellThresholdTextBox.Text = bitCoinStock.SellThreshold.ToString();
             buyThresholTextBox.Text = bitCoinStock.BuyThreshold.ToString();
             upThresholdTextBox.Text = bitCoinStock.Ticker.UpThreshold.ToString();
             downThresholTextBox.Text = bitCoinStock.Ticker.DownThreshold.ToString();
+            alertUpperTextbox.Text = bitCoinStock.AlertUpper.ToString();
+            alertLowerTextbox.Text = bitCoinStock.AlertLower.ToString();
 
             thread = new Thread(bitCoinStock.MainLoop);
             thread.Name = "mainloop";
@@ -59,17 +65,58 @@ namespace BitCoinWatcher
                 this.Refresh();
             }
         }
+        private void playSound(BitCoinStock.AlertEventArgs e)
+        {
+            if(this.InvokeRequired)
+            {
+                playSoundEventHandler d = playSound;
+                this.Invoke(d, e);
+            }
+            else
+            {
+                alertPlayer.settings.volume = 50;
+                alertPlayer.Ctlcontrols.play();
+                string alertStr;
+                if(e.currentValue >= e.alertUpper)
+                {
+                    alertStr = "超过上限";
+                }
+                else
+                {
+                    alertStr = "低于下限";
+                }
+                MessageBox.Show(alertStr);
+                alertPlayer.Ctlcontrols.stop();
+                alertCheckBox.CheckState = CheckState.Unchecked;
+            }
+        }
         private void setBitcoinStockMember()
         {
+
             bitCoinStock.SetMemberValue(Convert.ToDouble(buyThresholTextBox.Text), Convert.ToDouble(sellThresholdTextBox.Text), 
                 Convert.ToDouble(frequencyTextBox.Text));
             bitCoinStock.Ticker.SetMemberValue(Convert.ToDouble(upThresholdTextBox.Text), Convert.ToDouble(downThresholTextBox.Text));
+            
             bitCoinStock.SaveXml(xmlFile);
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             setBitcoinStockMember();
+        }
+        private void alertCheckBox_CheckStateChanged(object sender, EventArgs e)
+        {
+            if (alertCheckBox.CheckState == CheckState.Checked)
+            {
+                double alertUpper = alertUpperTextbox.Text == "" ? 0 : Convert.ToDouble(alertUpperTextbox.Text);
+                double alertLower = alertLowerTextbox.Text == "" ? 0 : Convert.ToDouble(alertLowerTextbox.Text);
+                bitCoinStock.AlertUpper = alertUpper;
+                bitCoinStock.AlertLower = alertLower;
+                bitCoinStock.IsAlert = true;
+            }
+            else if (alertCheckBox.CheckState == CheckState.Unchecked)
+            {
+                bitCoinStock.IsAlert = false;
+            }
         }
 
         private BitCoinStock bitCoinStock;
@@ -78,5 +125,6 @@ namespace BitCoinWatcher
         private Dictionary<ExchangeStatus, string> exchangStatus;
         private Dictionary<StockStatus, string> stockStatus;
         delegate void changeTextEventHandler(BitCoinStock.RefreashedEventArgs e);
+        delegate void playSoundEventHandler(BitCoinStock.AlertEventArgs e);
     }
 }

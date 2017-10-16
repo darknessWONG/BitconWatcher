@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.frequencyTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,6 +47,13 @@
             this.label8 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.decisionLabel = new System.Windows.Forms.Label();
+            this.alertUpperTextbox = new System.Windows.Forms.TextBox();
+            this.alertLowerTextbox = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.alertPlayer = new AxWMPLib.AxWindowsMediaPlayer();
+            this.alertCheckBox = new System.Windows.Forms.CheckBox();
+            ((System.ComponentModel.ISupportInitialize)(this.alertPlayer)).BeginInit();
             this.SuspendLayout();
             // 
             // frequencyTextBox
@@ -203,11 +211,70 @@
             this.decisionLabel.TabIndex = 17;
             this.decisionLabel.Text = "label9";
             // 
+            // alertUpperTextbox
+            // 
+            this.alertUpperTextbox.Location = new System.Drawing.Point(735, 66);
+            this.alertUpperTextbox.Name = "alertUpperTextbox";
+            this.alertUpperTextbox.Size = new System.Drawing.Size(100, 21);
+            this.alertUpperTextbox.TabIndex = 18;
+            // 
+            // alertLowerTextbox
+            // 
+            this.alertLowerTextbox.Location = new System.Drawing.Point(737, 147);
+            this.alertLowerTextbox.Name = "alertLowerTextbox";
+            this.alertLowerTextbox.Size = new System.Drawing.Size(100, 21);
+            this.alertLowerTextbox.TabIndex = 19;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(735, 47);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(77, 12);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "报警区间上限";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(735, 132);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(77, 12);
+            this.label10.TabIndex = 21;
+            this.label10.Text = "报警区间下限";
+            // 
+            // alertPlayer
+            // 
+            this.alertPlayer.Enabled = true;
+            this.alertPlayer.Location = new System.Drawing.Point(735, 186);
+            this.alertPlayer.Name = "alertPlayer";
+            this.alertPlayer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("alertPlayer.OcxState")));
+            this.alertPlayer.Size = new System.Drawing.Size(75, 23);
+            this.alertPlayer.TabIndex = 22;
+            this.alertPlayer.Visible = false;
+            // 
+            // alertCheckBox
+            // 
+            this.alertCheckBox.AutoSize = true;
+            this.alertCheckBox.Location = new System.Drawing.Point(735, 216);
+            this.alertCheckBox.Name = "alertCheckBox";
+            this.alertCheckBox.Size = new System.Drawing.Size(72, 16);
+            this.alertCheckBox.TabIndex = 23;
+            this.alertCheckBox.Text = "使用报警";
+            this.alertCheckBox.UseVisualStyleBackColor = true;
+            this.alertCheckBox.CheckStateChanged += new System.EventHandler(this.alertCheckBox_CheckStateChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(894, 594);
+            this.Controls.Add(this.alertCheckBox);
+            this.Controls.Add(this.alertPlayer);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.alertLowerTextbox);
+            this.Controls.Add(this.alertUpperTextbox);
             this.Controls.Add(this.decisionLabel);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.buyThresholTextBox);
@@ -229,6 +296,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.alertPlayer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -254,6 +322,12 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label decisionLabel;
+        private System.Windows.Forms.TextBox alertUpperTextbox;
+        private System.Windows.Forms.TextBox alertLowerTextbox;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private AxWMPLib.AxWindowsMediaPlayer alertPlayer;
+        private System.Windows.Forms.CheckBox alertCheckBox;
     }
 }
 
