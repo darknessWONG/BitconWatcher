@@ -15,7 +15,6 @@ namespace BitCoinWatcher
 
         public void labelRefreash(Object sender,BitCoinStock.RefreashedEventArgs e)
         {
-            //BitCoinStock tmpBitcoinStock = (BitCoinStock)sender;
             changeText(e);
         }
         public void alerting(Object sender, BitCoinStock.AlertEventArgs e)

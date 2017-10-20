@@ -6,6 +6,10 @@ namespace BitCoinInterface
 {
     public class BitCoinTrader
     {
+        private GetBalanceApi blance;
+
+        public string AccessKey { get; set; }
+        public string AccessSecret { get; set; }
         public double CurrentBitcoinNum { get; private set; }   //现在持有的比特币数量
         public double CurrentCashNum { get; private set; }      //现在持有的现金数量
         public double LastBuyValue { get; private set; }        //上一次购买时的价格
@@ -14,11 +18,34 @@ namespace BitCoinInterface
 
         public BitCoinTrader()
         {
+            ResetMemeber("8jnAgjEnjZ9gj9YCU8wEir", "Gt/V0lPpY5e/DUXmTTHaQCKbOZT0ikT5ahYyjjrGIio=");
+ 
+        }
+        public BitCoinTrader(string accessKey, string accessSecret)
+        {
+            ResetMemeber(accessKey, accessSecret);
+
+        }
+        public BitCoinTrader(Hashtable datas)
+        {
+            ResetMemeber(datas);
+        }
+
+        public void ResetMemeber(string accessKey, string accessSecret)
+        {
+            AccessKey = accessKey;
+            AccessSecret = accessSecret;
+            blance = new GetBalanceApi(AccessKey, AccessSecret);
+            blance.start();
             CurrentBitcoinNum = getBitcoinNum();
             CurrentCashNum = getCashNum();
             LastBuyValue = getLastBuyValue();
             LastSellValue = getLastSellValue();
             NextStep = calNextStep();
+        }
+        public void ResetMemeber(Hashtable data)
+        {
+            ResetMemeber((string)data["AccessKey"], (string)data["AccessSecret"]);
         }
 
 
@@ -46,18 +73,19 @@ namespace BitCoinInterface
         public Hashtable ToHashtable()
         {
             Hashtable returnValue = new Hashtable();
-
-            return null;
+            returnValue["AccessKey"] = AccessKey;
+            returnValue["AccessSecret"] = AccessSecret;
+            return returnValue; ;
         }
 
 
         private double getBitcoinNum()
         {
-            return 0;
+            return blance.getBTCVal();
         }
         private double getCashNum()
         {
-            return 100000;
+            return blance.getJPYVal();
         }
         private double getLastBuyValue()
         {
@@ -69,7 +97,14 @@ namespace BitCoinInterface
         }
         private ExchangeStatus calNextStep()
         {
-            return ExchangeStatus.buy;
+            if(CurrentBitcoinNum > 1)
+            {
+                return ExchangeStatus.sell;
+            }
+            else
+            {
+                return ExchangeStatus.buy;
+            }
         }
 
         private void buy(double currentValue)

@@ -2,7 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Xml;
+using System.Security;
+using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace BitCoinInterface
 {
@@ -128,5 +134,53 @@ namespace BitCoinInterface
             int a = (int)(num * Math.Pow(10, decNum));
             return a / Math.Pow(10, decNum);
         }
+
+        public static string _SignWithHMACSHA256(string data, string secret)
+        {
+            using (var encoder = new HMACSHA256(Encoding.UTF8.GetBytes(secret)))
+            {
+                var hash = encoder.ComputeHash(Encoding.UTF8.GetBytes(data));
+                return BitConverter.ToString(hash).Replace("-", "");
+            }
+        }
+    }
+
+
+
+}
+
+namespace Newtonsoft.Json.Linq
+{
+    public static class BJArray
+    {
+        public static Hashtable ToHashtable(this JArray datas)
+        {
+            Hashtable returnValue = new Hashtable();
+            int i = 0;
+            foreach (JObject data in datas)
+            {
+                Hashtable tmp = new Hashtable();
+                foreach (JProperty pro in data.Properties())
+                {
+                    tmp[pro.Name] = data[pro.Name].ToString();
+                }
+                returnValue[i++] = tmp;
+            }
+            return returnValue;
+        }
+    }
+
+    public static class BJObject
+    {
+        public static Hashtable ToHashtable(this JObject data)
+        {
+            Hashtable returnValue = new Hashtable();
+            foreach (JProperty pro in data.Properties())
+            {
+                returnValue[pro.Name] = data[pro.Name].ToString();
+            }
+            return returnValue;
+        }
     }
 }
+

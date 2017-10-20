@@ -98,7 +98,7 @@ namespace BitCoinInterface
             XmlFile = xmlFile;
             Hashtable datas = XmlConfigHandler._LoadConfigXml(XmlFile);
             SetMemberValue((Hashtable)datas);
-            Trader = new BitCoinTrader();
+            Trader = new BitCoinTrader((Hashtable)datas["Trader"]);
             Ticker = new BitCoinTicker((Hashtable)datas["Ticker"]);
         }
         ~BitCoinStock()
@@ -171,6 +171,7 @@ namespace BitCoinInterface
                     AlertEventArgs alertEA = new AlertEventArgs(Ticker.CurrentValue, AlertUpper, AlertLower);
                     alerted(alertEA);
                 }
+
                 Thread.Sleep((int)SleepTime);
             }
         }

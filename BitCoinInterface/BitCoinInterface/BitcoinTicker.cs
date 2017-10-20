@@ -71,7 +71,7 @@ namespace BitCoinInterface
                 errorCounter.AddRecord(true);
                 return trendContain();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 if (!errorCounter.AddRecord(false))
                 {

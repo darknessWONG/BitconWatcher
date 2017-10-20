@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using Newtonsoft.Json.Linq;
 using System.Collections;
 
 namespace BitCoinInterface
@@ -42,7 +43,7 @@ namespace BitCoinInterface
         {
             try
             {
-                return (double)Json["ltp"];
+                return Convert.ToDouble(Json["ltp"]);
             }
             catch(Exception e)
             {
@@ -58,7 +59,7 @@ namespace BitCoinInterface
         {
             if (Request != null)
             {
-                Json = WebRequestBase._getJsonFromRequest(Request);
+                Json = (Hashtable)WebRequestBase._getJsonFromRequest(Request);
             }
         }
     }
