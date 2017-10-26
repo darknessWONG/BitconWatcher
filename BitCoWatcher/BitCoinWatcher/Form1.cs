@@ -59,6 +59,9 @@ namespace BitCoinWatcher
             {
                 currentValueLabel.Text = e.currentValue.ToString();
                 lastValueLabel.Text = e.lastValue.ToString();
+                currentBTCLabel.Text = e.currentBTC.ToString();
+                currentJPYLabel.Text = e.currentJPY.ToString();
+
                 resultLabel.Text = stockStatus[e.status];
                 decisionLabel.Text = exchangStatus[e.decision];
                 this.Refresh();

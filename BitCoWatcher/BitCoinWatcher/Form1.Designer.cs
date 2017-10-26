@@ -53,6 +53,10 @@
             this.label10 = new System.Windows.Forms.Label();
             this.alertPlayer = new AxWMPLib.AxWindowsMediaPlayer();
             this.alertCheckBox = new System.Windows.Forms.CheckBox();
+            this.currentJPYLabel = new System.Windows.Forms.Label();
+            this.currentBTCLabel = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.alertPlayer)).BeginInit();
             this.SuspendLayout();
             // 
@@ -264,11 +268,55 @@
             this.alertCheckBox.UseVisualStyleBackColor = true;
             this.alertCheckBox.CheckStateChanged += new System.EventHandler(this.alertCheckBox_CheckStateChanged);
             // 
+            // currentJPYLabel
+            // 
+            this.currentJPYLabel.AutoSize = true;
+            this.currentJPYLabel.Font = new System.Drawing.Font("宋体", 30F);
+            this.currentJPYLabel.Location = new System.Drawing.Point(75, 496);
+            this.currentJPYLabel.Name = "currentJPYLabel";
+            this.currentJPYLabel.Size = new System.Drawing.Size(37, 40);
+            this.currentJPYLabel.TabIndex = 24;
+            this.currentJPYLabel.Text = "0";
+            // 
+            // currentBTCLabel
+            // 
+            this.currentBTCLabel.AutoSize = true;
+            this.currentBTCLabel.Font = new System.Drawing.Font("宋体", 30F);
+            this.currentBTCLabel.Location = new System.Drawing.Point(282, 496);
+            this.currentBTCLabel.Name = "currentBTCLabel";
+            this.currentBTCLabel.Size = new System.Drawing.Size(37, 40);
+            this.currentBTCLabel.TabIndex = 25;
+            this.currentBTCLabel.Text = "0";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("宋体", 15F);
+            this.label11.Location = new System.Drawing.Point(78, 461);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(129, 20);
+            this.label11.TabIndex = 26;
+            this.label11.Text = "当前持有现金";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("宋体", 15F);
+            this.label12.Location = new System.Drawing.Point(289, 461);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(129, 20);
+            this.label12.TabIndex = 27;
+            this.label12.Text = "当前持有的币";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(894, 594);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.currentBTCLabel);
+            this.Controls.Add(this.currentJPYLabel);
             this.Controls.Add(this.alertCheckBox);
             this.Controls.Add(this.alertPlayer);
             this.Controls.Add(this.label10);
@@ -328,6 +376,10 @@
         private System.Windows.Forms.Label label10;
         private AxWMPLib.AxWindowsMediaPlayer alertPlayer;
         private System.Windows.Forms.CheckBox alertCheckBox;
+        private System.Windows.Forms.Label currentJPYLabel;
+        private System.Windows.Forms.Label currentBTCLabel;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
     }
 }
 

@@ -36,13 +36,18 @@ namespace BitCoinInterface
             public readonly double lastValue;
             public readonly StockStatus status;
             public readonly ExchangeStatus decision;
+            public readonly double currentBTC;
+            public readonly double currentJPY;
 
-            public RefreashedEventArgs(double currentValue, double lastValue, StockStatus status, ExchangeStatus decision)
+            public RefreashedEventArgs(double currentValue, double lastValue, StockStatus status, ExchangeStatus decision,
+                double currentBTC, double currentJPY)
             {
                 this.currentValue = currentValue;
                 this.lastValue = lastValue;
                 this.status = status;
                 this.decision = decision;
+                this.currentBTC = currentBTC;
+                this.currentJPY = currentJPY;
             }
         }
         public void onRefreash(RefreashedEventArgs e)
@@ -55,6 +60,7 @@ namespace BitCoinInterface
             public readonly double currentValue;
             public readonly double alertUpper;
             public readonly double alertLower;
+
 
             public AlertEventArgs(double currentValue, double alertUpper, double alertLower)
             {
@@ -164,7 +170,8 @@ namespace BitCoinInterface
                 {
                     firstBuyFlag = false;
                 }
-                RefreashedEventArgs refreashEA = new RefreashedEventArgs(Ticker.CurrentValue, Ticker.LastValue, Ticker.Status, Decision);
+                RefreashedEventArgs refreashEA = new RefreashedEventArgs(Ticker.CurrentValue, Ticker.LastValue, Ticker.Status, Decision, 
+                    Trader.CurrentBitcoinNum, Trader.CurrentCashNum);
                 onRefreash(refreashEA);
                if(IsAlert && ((AlertUpper != 0 && Ticker.CurrentValue >= AlertUpper) || (AlertLower != 0 && Ticker.CurrentValue <= AlertLower)))
                 {

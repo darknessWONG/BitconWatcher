@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Collections;
-using Newtonsoft.Json.Linq;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BitCoinInterface
 {
