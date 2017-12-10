@@ -103,7 +103,7 @@ namespace BitCoinInterface
         {
             XmlFile = xmlFile;
             Hashtable datas = XmlConfigHandler._LoadConfigXml(XmlFile);
-            SetMemberValue((Hashtable)datas);
+            SetMemberValue(datas);
             Trader = new BitCoinTrader((Hashtable)datas["Trader"]);
             Ticker = new BitCoinTicker((Hashtable)datas["Ticker"]);
         }
